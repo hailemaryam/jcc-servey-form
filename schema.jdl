@@ -1,0 +1,67 @@
+enum DataType{NUMBER, BOOLEAN, SHORT_ANSWER, PARAGRAPH, MULTIPLE_CHOICE, CHECK_BOX, DROP_DOWN, FILE_UPLOAD, DATE, TIME}
+entity Form {
+    name String
+    description TextBlob
+}
+entity Question {
+    title TextBlob
+    isRequired Boolean
+    dataType DataType
+}
+entity QuestionOption{
+    option String
+}
+entity FormProgresss {
+    submited Boolean
+    started_on Instant
+    submited_on Instant
+    sented_on Instant
+}
+entity Answer {
+    number Double
+    boolean Boolean
+    short_answer String
+    paragraph TextBlob
+    multiple_choice String
+    drop_down String
+    file_uploaded Blob
+    file_name String
+    date Instant
+    time Duration
+    submited_on Instant
+    data_type DataType
+}
+entity MultipleChoiceAnsewer {
+    choice String
+}
+entity TypeOfOrganization {
+    name String
+    description TextBlob
+}
+entity Company {
+    strategic_objective String
+    future_focus_area String
+    current_funding_cycle String
+}
+relationship OneToMany {
+    Form to FormProgresss{form(name)}
+    Form to Question {form(name)}
+    Question to QuestionOption
+    Question to Answer{question(title)}
+    FormProgresss to Answer
+    Answer to MultipleChoiceAnsewer
+    TypeOfOrganization to Company{typeOfOrganation(name)}
+}
+relationship ManyToOne {
+    Answer{user(login)} to User
+    Form{user(login)} to User
+    FormProgresss{user(login)} to User
+}
+relationship OneToOne {
+    Company{user(login)} to User with jpaDerivedIdentifier
+}
+filter *
+dto * with mapstruct
+service * with serviceClass
+service * with serviceImpl
+paginate * with pagination
