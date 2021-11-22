@@ -2,34 +2,36 @@ enum DataType{NUMBER, BOOLEAN, SHORT_ANSWER, PARAGRAPH, MULTIPLE_CHOICE, CHECK_B
 entity Form {
     name String
     description TextBlob
+    createdOn Instant
+    updatedOn Instant
 }
 entity Question {
     title TextBlob
-    isRequired Boolean
+    mandatory Boolean required
     dataType DataType
 }
-entity QuestionOption{
+entity QuestionChoice{
     option String
 }
 entity FormProgresss {
     submited Boolean
-    started_on Instant
-    submited_on Instant
-    sented_on Instant
+    startedOn Instant
+    submitedOn Instant
+    sentedOn Instant
 }
 entity Answer {
     number Double
-    boolean Boolean
-    short_answer String
+    booleanAnswer Boolean
+    shortAnswer String
     paragraph TextBlob
-    multiple_choice String
-    drop_down String
-    file_uploaded Blob
-    file_name String
+    multipleChoice String
+    dropDown String
+    fileUploaded Blob
+    fileName String
     date Instant
     time Duration
-    submited_on Instant
-    data_type DataType
+    submitedOn Instant
+    dataType DataType
 }
 entity MultipleChoiceAnsewer {
     choice String
@@ -39,14 +41,14 @@ entity TypeOfOrganization {
     description TextBlob
 }
 entity Company {
-    strategic_objective String
-    future_focus_area String
-    current_funding_cycle String
+    strategicObjective String
+    futureFocusArea String
+    currentFundingCycle String
 }
 relationship OneToMany {
     Form to FormProgresss{form(name)}
     Form to Question {form(name)}
-    Question to QuestionOption
+    Question to QuestionChoice
     Question to Answer{question(title)}
     FormProgresss to Answer
     Answer to MultipleChoiceAnsewer
