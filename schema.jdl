@@ -41,6 +41,7 @@ entity TypeOfOrganization {
     description TextBlob
 }
 entity Company {
+    companyName String
     strategicObjective String
     futureFocusArea String
     currentFundingCycle String
